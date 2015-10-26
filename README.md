@@ -36,7 +36,7 @@ deny ehsan designer
 ```
 
 To disable the commands:
-```
+```javascript
 bot.data.permissions = {
   options: {
     grant: false,
