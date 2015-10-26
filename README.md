@@ -29,8 +29,7 @@ grant, deny
 Users specified in the `options.grant` and `options.deny` array are given the permission to grant or deny
 a user to a permission group. Enabled by default for the `admins` group.
 
-For example:
-
+Example:
 ```
 grant milani admin
 deny ehsan designer
