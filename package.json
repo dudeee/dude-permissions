@@ -2,8 +2,11 @@
   "name": "bolt-permissions",
   "description": "Trigger `listen` only of the requesting user has permission",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdibaiee/bolt-permissions"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
