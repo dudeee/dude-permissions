@@ -1,6 +1,6 @@
 const DEFAULTS = {
-  grant: ['admins'],
-  deny: ['admins']
+  grant: ['admin'],
+  deny: ['admin']
 }
 
 export default bot => {
