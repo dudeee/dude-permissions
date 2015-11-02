@@ -1,8 +1,8 @@
 {
   "name": "bolt-permissions",
   "description": "Trigger `listen` only of the requesting user has permission",
-  "version": "1.0.1",
-  "main": "index.js",
+  "version": "1.0.3",
+  "main": "build/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/mdibaiee/bolt-permissions"
@@ -15,6 +15,9 @@
   "dependencies": {
     "babel-core": "6.0.16",
     "babel-preset-es2015": "6.0.15",
-    "babel-preset-stage-2": "6.0.15"
+    "babel-preset-stage-2": "6.0.15",
+    "grunt": "0.4.5",
+    "grunt-babel": "6.0.0",
+    "grunt-contrib-watch": "0.6.1"
   }
 }
