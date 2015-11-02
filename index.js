@@ -74,4 +74,7 @@ export default bot => {
       message.reply(`Removed ${user} from ${group}`);
     }, { permissions: deny });
   }
+
+  bot.help('grant', 'grant permission groups to users', 'grant <username> <group>');
+  bot.help('deny', 'deny permission groups from users', 'deny <username> <group>')
 }
