@@ -21,6 +21,7 @@ exports['default'] = function (bot) {
     if (context.permissions) {
       var _ret = (function () {
         var user = bot.find(context.user);
+        bot.log.debug('[permissions] permissions: ' + context.permissions + ', user: ' + user.name);
 
         if (Array.isArray(context.permissions)) {
           var access = context.permissions.some(function (permission) {
@@ -29,13 +30,17 @@ exports['default'] = function (bot) {
             return allowed.includes(user.name);
           });
 
-          if (!access) return {
+          if (!access) {
+            bot.log.debug('[permissions] denied');
+            return {
               v: Promise.reject()
             };
+          }
         } else {
           var allowed = groups[context.permissions] || [];
 
           if (!allowed.includes(user.name)) {
+            bot.log.debug('[permissions] denied');
             return {
               v: Promise.reject()
             };
@@ -46,6 +51,7 @@ exports['default'] = function (bot) {
       if (typeof _ret === 'object') return _ret.v;
     }
 
+    bot.log.debug('[permissions] granted');
     return Promise.resolve();
   });
 
@@ -99,7 +105,7 @@ exports['default'] = function (bot) {
     }, { permissions: deny });
   }
 
-  bot.help('permissions', 'grant/deny permission to groups of users', '\n  grant <username> <group> – add the user to permission group\n  deny <username> <group> – kick the user from the permissions group\n  ');
+  bot.help('permissions', 'grant/deny permissions to a user', '\n  grant <username> <group> – add the user to permission group\n  deny <username> <group> – kick the user from the permissions group\n  ');
 };
 
 module.exports = exports['default'];

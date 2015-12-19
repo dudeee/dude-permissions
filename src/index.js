@@ -10,6 +10,7 @@ export default bot => {
   bot.modifiers.middleware('hear', context => {
     if (context.permissions) {
       let user = bot.find(context.user);
+      bot.log.debug(`[permissions] permissions: ${context.permissions}, user: ${user.name}`);
 
       if (Array.isArray(context.permissions)) {
         let access = context.permissions.some(permission => {
@@ -18,16 +19,21 @@ export default bot => {
           return allowed.includes(user.name);
         });
 
-        if (!access) return Promise.reject();
+        if (!access) {
+          bot.log.debug(`[permissions] denied`);
+          return Promise.reject();
+        }
       } else {
         let allowed = groups[context.permissions] || [];
 
         if (!allowed.includes(user.name)) {
+          bot.log.debug(`[permissions] denied`);
           return Promise.reject();
         }
       }
     }
 
+    bot.log.debug(`[permissions] granted`);
     return Promise.resolve();
   });
 
@@ -75,7 +81,7 @@ export default bot => {
     }, { permissions: deny });
   }
 
-  bot.help('permissions', 'grant/deny permission to groups of users', `
+  bot.help('permissions', 'grant/deny permissions to a user', `
   grant <username> <group> – add the user to permission group
   deny <username> <group> – kick the user from the permissions group
   `)
