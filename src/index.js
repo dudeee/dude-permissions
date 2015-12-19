@@ -7,7 +7,7 @@ export default bot => {
   let data = bot.data;
   let groups = data.permissions;
 
-  bot.modifiers.middleware('listen', context => {
+  bot.modifiers.middleware('hear', context => {
     if (context.permissions) {
       let user = bot.find(context.user);
 
@@ -35,7 +35,7 @@ export default bot => {
   let grant = options.grant;
 
   if (grant) {
-    bot.listen(/grant (\w+) (\w+)/i, message => {
+    bot.listen(/permissions grant (\w+) (\w+)/i, message => {
       let [, user, group] = message.match;
 
       if (!user || !group) {
@@ -59,7 +59,7 @@ export default bot => {
 
   let deny = options.deny;
   if (deny) {
-    bot.listen(/deny (\w+) (\w+)/i, message => {
+    bot.listen(/permissions deny (\w+) (\w+)/i, message => {
       let [, user, group] = message.match;
 
       if (!user || !group) {
@@ -75,6 +75,8 @@ export default bot => {
     }, { permissions: deny });
   }
 
-  bot.help('grant', 'grant permission groups to users', 'grant <username> <group>');
-  bot.help('deny', 'deny permission groups from users', 'deny <username> <group>')
+  bot.help('permissions', 'grant/deny permission to groups of users', `
+  grant <username> <group> – add the user to permission group
+  deny <username> <group> – kick the user from the permissions group
+  `)
 }

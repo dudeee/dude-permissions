@@ -17,7 +17,7 @@ exports['default'] = function (bot) {
   var data = bot.data;
   var groups = data.permissions;
 
-  bot.modifiers.middleware('listen', function (context) {
+  bot.modifiers.middleware('hear', function (context) {
     if (context.permissions) {
       var _ret = (function () {
         var user = bot.find(context.user);
@@ -53,7 +53,7 @@ exports['default'] = function (bot) {
   var grant = options.grant;
 
   if (grant) {
-    bot.listen(/grant (\w+) (\w+)/i, function (message) {
+    bot.listen(/permissions grant (\w+) (\w+)/i, function (message) {
       var _message$match = _slicedToArray(message.match, 3);
 
       var user = _message$match[1];
@@ -80,7 +80,7 @@ exports['default'] = function (bot) {
 
   var deny = options.deny;
   if (deny) {
-    bot.listen(/deny (\w+) (\w+)/i, function (message) {
+    bot.listen(/permissions deny (\w+) (\w+)/i, function (message) {
       var _message$match2 = _slicedToArray(message.match, 3);
 
       var user = _message$match2[1];
@@ -99,8 +99,7 @@ exports['default'] = function (bot) {
     }, { permissions: deny });
   }
 
-  bot.help('grant', 'grant permission groups to users', 'grant <username> <group>');
-  bot.help('deny', 'deny permission groups from users', 'deny <username> <group>');
+  bot.help('permissions', 'grant/deny permission to groups of users', '\n  grant <username> <group> – add the user to permission group\n  deny <username> <group> – kick the user from the permissions group\n  ');
 };
 
 module.exports = exports['default'];
