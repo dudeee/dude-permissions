@@ -14,7 +14,7 @@ var DEFAULTS = {
 };
 
 exports['default'] = function (bot) {
-  var data = bot.data;
+  var data = bot.config;
   var groups = data.permissions;
 
   bot.modifiers.middleware('hear', function (context) {
@@ -60,10 +60,10 @@ exports['default'] = function (bot) {
 
   if (grant) {
     bot.listen(/permissions grant (\w+) (\w+)/i, function (message) {
-      var _message$match = _slicedToArray(message.match, 3);
+      var _message$match = _slicedToArray(message.match, 2);
 
-      var user = _message$match[1];
-      var group = _message$match[2];
+      var user = _message$match[0];
+      var group = _message$match[1];
 
       if (!user || !group) {
         return message.reply('grant <username> <group>');
@@ -87,10 +87,10 @@ exports['default'] = function (bot) {
   var deny = options.deny;
   if (deny) {
     bot.listen(/permissions deny (\w+) (\w+)/i, function (message) {
-      var _message$match2 = _slicedToArray(message.match, 3);
+      var _message$match2 = _slicedToArray(message.match, 2);
 
-      var user = _message$match2[1];
-      var group = _message$match2[2];
+      var user = _message$match2[0];
+      var group = _message$match2[1];
 
       if (!user || !group) {
         return message.reply('deny <username> <group>');

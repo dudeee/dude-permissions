@@ -4,7 +4,7 @@ bolt-permissions
 Setup permissions in `initialize`:
 ```javascript
 export default bot => {
-  bot.data = {
+  bot.config = {
     permissions: {
       admins: ['mahdi', 'milani'],
       designers: ['ehsan', 'ali', 'mohsen'],
@@ -37,7 +37,7 @@ deny ehsan designer
 
 To disable the commands:
 ```javascript
-bot.data.permissions = {
+bot.config.permissions = {
   options: {
     grant: false,
     deny: false

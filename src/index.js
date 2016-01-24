@@ -4,7 +4,7 @@ const DEFAULTS = {
 }
 
 export default bot => {
-  let data = bot.data;
+  let data = bot.config;
   let groups = data.permissions;
 
   bot.modifiers.middleware('hear', context => {
@@ -42,7 +42,7 @@ export default bot => {
 
   if (grant) {
     bot.listen(/permissions grant (\w+) (\w+)/i, message => {
-      let [, user, group] = message.match;
+      let [user, group] = message.match;
 
       if (!user || !group) {
         return message.reply('grant <username> <group>');
@@ -66,7 +66,7 @@ export default bot => {
   let deny = options.deny;
   if (deny) {
     bot.listen(/permissions deny (\w+) (\w+)/i, message => {
-      let [, user, group] = message.match;
+      let [user, group] = message.match;
 
       if (!user || !group) {
         return message.reply('deny <username> <group>');
