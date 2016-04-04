@@ -5,7 +5,7 @@ const DEFAULTS = {
 
 export default bot => {
   let data = bot.config;
-  let groups = data.permissions;
+  let groups = data.permissions || {};
 
   bot.modifiers.middleware('hear', context => {
     if (context.permissions) {

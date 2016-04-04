@@ -15,7 +15,7 @@ var DEFAULTS = {
 
 exports['default'] = function (bot) {
   var data = bot.config;
-  var groups = data.permissions;
+  var groups = data.permissions || {};
 
   bot.modifiers.middleware('hear', function (context) {
     if (context.permissions) {
