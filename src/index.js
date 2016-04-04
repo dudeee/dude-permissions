@@ -13,7 +13,6 @@ export default bot => {
       if (Array.isArray(context.permissions)) {
         let access = context.permissions.some(permission => {
           let allowed = groups[permission] || [];
-          console.log(permission, groups, allowed);
 
           return allowed.includes(user.name);
         });
