@@ -8,7 +8,7 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var DEFAULTS = {
+var DEFAULTS = { // eslint-disable-line
   grant: ['admin'],
   deny: ['admin']
 };
@@ -58,18 +58,22 @@ exports['default'] = function (bot) {
 
   if (grant) {
     bot.listen(/permissions grant (\w+) (\w+)/i, function (message) {
+      var groups = bot.config.permissions || {};
+
       var _message$match = _slicedToArray(message.match, 2);
 
       var user = _message$match[0];
       var group = _message$match[1];
 
       if (!user || !group) {
-        return message.reply('grant <username> <group>');
+        message.reply('grant <username> <group>');
+        return;
       }
 
       if (groups[group]) {
         if (groups[group].indexOf(user) > -1) {
-          return message.reply('User ' + user + ' is already in ' + group);
+          message.reply('User ' + user + ' is already in ' + group);
+          return;
         }
 
         groups[group].push(user);
@@ -78,23 +82,28 @@ exports['default'] = function (bot) {
       }
 
       message.reply('Added ' + user + ' to ' + group);
-      console.log(groups);
     }, { permissions: grant });
   }
 
   var deny = options.deny;
   if (deny) {
     bot.listen(/permissions deny (\w+) (\w+)/i, function (message) {
+      var groups = bot.config.permissions || {};
+
       var _message$match2 = _slicedToArray(message.match, 2);
 
       var user = _message$match2[0];
       var group = _message$match2[1];
 
       if (!user || !group) {
-        return message.reply('deny <username> <group>');
+        message.reply('deny <username> <group>');
+        return;
       }
 
-      if (!groups[group]) return message.reply('Group ' + group + ' doesn\'t exist');
+      if (!groups[group]) {
+        message.reply('Group ' + group + ' doesn\'t exist');
+        return;
+      }
 
       var index = groups[group].indexOf(user);
       groups[group].splice(index, 1);
