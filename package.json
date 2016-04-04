@@ -7,8 +7,14 @@
     "type": "git",
     "url": "https://github.com/mdibaiee/bolt-permissions"
   },
+  "config": {
+    "ghooks": {
+      "pre-commit": "grunt; npm run lint"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src"
   },
   "author": "Mahdi Dibaiee <mdibaiee@aol.com> (http://dibaiee.ir/)",
   "license": "MIT",
@@ -19,6 +25,10 @@
     "grunt-contrib-watch": "0.6.1"
   },
   "devDependencies": {
+    "babel-eslint": "6.0.2",
+    "eslint": "2.6.0",
+    "eslint-config-airbnb": "6.2.0",
+    "ghooks": "1.1.1",
     "grunt-contrib-clean": "1.0.0"
   }
 }

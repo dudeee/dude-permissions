@@ -24,7 +24,6 @@ exports['default'] = function (bot) {
         if (Array.isArray(context.permissions)) {
           var access = context.permissions.some(function (permission) {
             var allowed = groups[permission] || [];
-            console.log(permission, groups, allowed);
 
             return allowed.includes(user.name);
           });
