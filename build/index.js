@@ -14,10 +14,8 @@ var DEFAULTS = {
 };
 
 exports['default'] = function (bot) {
-  var data = bot.config;
-  var groups = data.permissions || {};
-
   bot.modifiers.middleware('hear', function (context) {
+    var groups = bot.config.permissions || {};
     if (context.permissions) {
       var _ret = (function () {
         var user = bot.find(context.user);
@@ -26,6 +24,7 @@ exports['default'] = function (bot) {
         if (Array.isArray(context.permissions)) {
           var access = context.permissions.some(function (permission) {
             var allowed = groups[permission] || [];
+            console.log(permission, groups, allowed);
 
             return allowed.includes(user.name);
           });
@@ -33,7 +32,7 @@ exports['default'] = function (bot) {
           if (!access) {
             bot.log.debug('[permissions] denied');
             return {
-              v: Promise.reject()
+              v: Promise.reject('User ' + user.name + ' doesn\'t have access to ' + context.permissions)
             };
           }
         } else {
@@ -42,7 +41,7 @@ exports['default'] = function (bot) {
           if (!allowed.includes(user.name)) {
             bot.log.debug('[permissions] denied');
             return {
-              v: Promise.reject()
+              v: Promise.reject('User ' + user.name + ' doesn\'t have access to ' + context.permissions)
             };
           }
         }
@@ -55,7 +54,7 @@ exports['default'] = function (bot) {
     return Promise.resolve();
   });
 
-  var options = _extends({}, DEFAULTS, data.permissions.options);
+  var options = _extends({}, DEFAULTS, (bot.config.permissions || {}).options);
   var grant = options.grant;
 
   if (grant) {

@@ -4,10 +4,8 @@ const DEFAULTS = {
 }
 
 export default bot => {
-  let data = bot.config;
-  let groups = data.permissions || {};
-
   bot.modifiers.middleware('hear', context => {
+    const groups = bot.config.permissions || {};
     if (context.permissions) {
       let user = bot.find(context.user);
       bot.log.debug(`[permissions] permissions: ${context.permissions}, user: ${user.name}`);
@@ -15,20 +13,21 @@ export default bot => {
       if (Array.isArray(context.permissions)) {
         let access = context.permissions.some(permission => {
           let allowed = groups[permission] || [];
+          console.log(permission, groups, allowed);
 
           return allowed.includes(user.name);
         });
 
         if (!access) {
           bot.log.debug(`[permissions] denied`);
-          return Promise.reject();
+          return Promise.reject(`User ${user.name} doesn't have access to ${context.permissions}`);
         }
       } else {
         let allowed = groups[context.permissions] || [];
 
         if (!allowed.includes(user.name)) {
           bot.log.debug(`[permissions] denied`);
-          return Promise.reject();
+          return Promise.reject(`User ${user.name} doesn't have access to ${context.permissions}`);
         }
       }
     }
@@ -37,7 +36,7 @@ export default bot => {
     return Promise.resolve();
   });
 
-  let options = { ...DEFAULTS, ...data.permissions.options };
+  let options = { ...DEFAULTS, ...(bot.config.permissions || {}).options };
   let grant = options.grant;
 
   if (grant) {

@@ -15,11 +15,15 @@ module.exports = function(grunt) {
         files: ['src/**/*.js'],
         tasks: ['clean', 'babel']
       }
-    }
+    },
+		clean: {
+			scripts: ['build']
+		}
   });
 
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
-  grunt.registerTask('default', ['babel']);
+  grunt.registerTask('default', ['clean', 'babel']);
 };
