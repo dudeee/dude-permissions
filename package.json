@@ -1,11 +1,11 @@
 {
-  "name": "bolt-permissions",
+  "name": "dude-permissions",
   "description": "Trigger `listen` only of the requesting user has permission",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "main": "build/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mdibaiee/bolt-permissions"
+    "url": "https://github.com/mdibaiee/dude-permissions"
   },
   "config": {
     "ghooks": {
