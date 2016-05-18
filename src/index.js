@@ -1,6 +1,6 @@
 const DEFAULTS = { // eslint-disable-line
   grant: ['admin'],
-  deny: ['admin']
+  deny: ['admin'],
 };
 
 export default bot => {
